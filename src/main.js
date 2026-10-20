@@ -215,7 +215,7 @@ async function doAuth(form){
       const {data,error}=await state.client.auth.signInWithPassword({email,password});
       if(error)throw error;state.user=data.user;state.notice='Você entrou! Bem-vinda ao seu calendário 💜';state.error=false;await fetchRows();
     }else{
-      const {data,error}=await state.client.auth.signUp({email,password});
+      const {data,error}=await state.client.auth.signUp({email,password,options:{emailRedirectTo:window.location.origin+import.meta.env.BASE_URL}});
       if(error)throw error;
       if(data.session){state.user=data.user;await fetchRows();}
       else{state.authMode='login';state.notice='Cadastro solicitado. Verifique seu email para confirmar a conta e depois entre.';state.error=false;}
